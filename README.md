@@ -8,7 +8,7 @@
 ### 目录:
 
 1. 消息队列：
-    - [docker容器安装rabbitmq集群](https://kallblack.github.io/blog/service-discovery/rabbitmq)
+    - [docker容器安装rabbitmq集群](https://kallblack.github.io/blog/queue/rabbitmq)
 2. 服务发现
     - [docker容器安装consul集群](https://kallblack.github.io/blog/service-discovery/consul)
 

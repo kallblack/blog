@@ -23,8 +23,8 @@ docker run -d --hostname rabbitmq03 --name rabbitmqCluster03 -v /root/rabbitmqcl
 
 注意点：
 
-1. Erlang Cookie值必须相同，也就是RABBITMQ_ERLANG_COOKIE参数的值必须相同
-2. 常用默认端口：
++ Erlang Cookie值必须相同，也就是RABBITMQ_ERLANG_COOKIE参数的值必须相同
++ 常用默认端口：
     - 4369: epmd, a peer discovery service used by RabbitMQ nodes and CLI tools
     - 5672, 5671: used by AMQP 0-9-1 and 1.0 clients without and with TLS    
     - 15672: HTTP API clients, management UI and rabbitmqadmin (only if the management plugin is enabled)
@@ -72,11 +72,9 @@ exit
 ### 4. Web UI界面
 设置好之后，使用http://宿主机ip:15672 进行访问了，默认账号密码是guest/guest
 
-![UI界面](/images/queue/rabbitmq的UI界面.png)
+![UI界面](https://github.com/kallblack/blog/blob/master/images/queue/rabbitmq%E7%9A%84UI%E7%95%8C%E9%9D%A2.png)
 
 
 ### 5. 前端页面js通过websocket连rabbitmq
 
-前端页面持续展示rabbitmq所推送的消息示例：
-
-[https://kallblack.github.io/blog/queue/rabbitmq/websocket-rabbitmq-example](https://kallblack.github.io/blog/queue/rabbitmq/websocket-rabbitmq-example)
+[前端页面持续展示rabbitmq所推送的消息示例](https://github.com/kallblack/blog/tree/master/queue/rabbitmq/websocket-rabbitmq-example)

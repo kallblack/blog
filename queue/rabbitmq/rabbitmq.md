@@ -72,7 +72,7 @@ exit
 ### 4. Web UI界面
 设置好之后，使用http://宿主机ip:15672 进行访问了，默认账号密码是guest/guest
 
-![UI界面](https://github.com/kallblack/blog/blob/master/images/queue/rabbitmq%E7%9A%84UI%E7%95%8C%E9%9D%A2.png)
+![UI界面](https://raw.githubusercontent.com/kallblack/blog/master/images/queue/rabbitmq%E7%9A%84UI%E7%95%8C%E9%9D%A2.png)
 
 
 ### 5. 前端页面js通过websocket连rabbitmq

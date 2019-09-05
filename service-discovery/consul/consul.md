@@ -1,6 +1,6 @@
-## docker容器安装consul集群
+# docker容器安装consul集群
 
-### 1. 安装前准备
+## 1. 安装前准备
 
 拉取consul镜像：
 
@@ -8,11 +8,11 @@
 docker pull consul:1.6.0
 ```
 
-### 2. 启动容器，建立集群
+## 2. 启动容器，建立集群
 
 我们先尝试建立一个数据中心。这里我们在同一台宿主机上进行安装，创建三个consul节点：
 
-#### 2.1 创建第一个节点
+## 2.1 创建第一个节点
 我们采用host网络模式，因为后面两个节点需要通过第一个节点的ip来加入集群，使用host网络模式，可以使容器ip地址共用宿主机ip，保持ip不变，否则容器每次重启时，ip地址可能会变化。在生产系统中，不同服务器上的server节点最好都是采用host网络模式，以保证节点之间能够相互访问。
 
 输入命令：
@@ -20,6 +20,8 @@ docker pull consul:1.6.0
 ```bash
 docker run -d --net=host --name consulCluster01  -v /root/consulcluster/consul01/data:/consul/data consul:1.6.0 agent -server -bootstrap-expect=3 -ui -bind=192.168.174.128 -client=0.0.0.0 -data-dir /consul/data
 ```
+
+参数具体含义：
 
 | 参数名称          	| 用途                                                                                                                                                                                                   	|
 |-------------------	|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|
@@ -37,7 +39,7 @@ docker run -d --net=host --name consulCluster01  -v /root/consulcluster/consul01
 
 
 
-#### 2.2 创建后面两个节点
+## 2.2 创建后面两个节点
 
 后面两个节点，我们采用docker默认的bridge网络模式，如果都采用host网络模式，则3个节点端口会冲突。后面两个节点，我们只需要把web ui的端口暴露出来就行了
 
@@ -54,7 +56,7 @@ docker run -d --name consulCluster03 --hostname consul03 -p 8502:8500 -v /root/c
 
 + -join：表示要加入集群的IP。这里加入的是第1个节点的IP
 
-#### 2.3 访问Web UI界面
+## 2.3 访问Web UI界面
 
 浏览器访问：http://192.168.174.128:8500 或者 http://192.168.174.128:8501 或者 http://192.168.174.128:8502
 
@@ -63,7 +65,7 @@ docker run -d --name consulCluster03 --hostname consul03 -p 8502:8500 -v /root/c
 ![UI界面][ui-base64]
 
 
-### 3. 创建client节点
+## 3. 创建client节点
 
 正常的consul架构里，除了server节点还有client节点，client节点部署在微服务所在的服务器上。
 
@@ -77,7 +79,7 @@ docker run -d --name consulCluster03 --hostname consul03 -p 8502:8500 -v /root/c
 docker run -d --name consulCluster04 --hostname consul04 -p 8503:8500 consul:1.6.0 agent -ui -bind=0.0.0.0 -client=0.0.0.0 -join 192.168.174.128
 ```
 
-### 4. 常用命令
+## 4. 常用命令
 + 查看当前集群情况：consul members
 ![members][mem-base64]
 可以看到Type那列，指明了哪些节点是server，哪些节点是client
@@ -86,7 +88,7 @@ docker run -d --name consulCluster04 --hostname consul04 -p 8503:8500 consul:1.6
 ![info][info-base64]
 可以看到leader的值true代表当前节点是leader，false代表当前节点是follower。当leader节点崩了，集群会在剩下的server节点里重新选举一个leader节点
 
-### 5. .net core对consul的服务注册
+## 5. .net core对consul的服务注册
 
 获取服务HTTP API
 
@@ -171,11 +173,11 @@ http://192.168.174.128:8500/v1/catalog/service/服务名
 
 
 具体详细HTTP API内容，请查阅官网：
-https://www.consul.io/api/catalog.html
+[https://www.consul.io/api/catalog.html](https://www.consul.io/api/catalog.html)
 
 
 .net core对consul的服务注册示例源码:
-https://github.com/kallblack/blog/tree/master/queue/rabbitmq/websocket-rabbitmq-example
+[https://github.com/kallblack/blog/tree/master/service-discovery/consul/netcore-consul-example](https://github.com/kallblack/blog/tree/master/service-discovery/consul/netcore-consul-example)
 
 
 

@@ -21,14 +21,21 @@ docker pull consul:1.6.0
 docker run -d --net=host --name consulCluster01  -v /root/consulcluster/consul01/data:/consul/data consul:1.6.0 agent -server -bootstrap-expect=3 -ui -bind=192.168.174.128 -client=0.0.0.0 -data-dir /consul/data
 ```
 
-注意：
+| 参数名称          	| 用途                                                                                                                                                                                                   	|
+|-------------------	|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|
+| -server           	| 此标志用于控制代理是运行于服务器/客户端模式，每个 Consul 集群至少有一个服务器，正常情况下不超过5个，使用此标记的服务器参与 Raft一致性算法、选举等事务性工作                                            	|
+| -client           	| 表示 Consul 绑定客户端接口的IP地址，默认值为：127.0.0.1，当你有多块网卡的时候，最好指定IP地址，不要使用默认值                                                                                          	|
+| -bootstrap-expect 	| 预期的服务器集群的数量，整数，如 -bootstrap-expect=3，表示集群服务器数量为3台，设置该参数后，Consul将等待指定数量的服务器全部加入集群可用后，才开始引导集群正式开始工作，此参数必须与 -server 一起使用 	|
+| -data-dir         	| 存储数据的目录，该目录在 Consul 程序重启后数据不会丢失，指定此目录时，应确保运行 Consul 程序的用户对该目录具有读写权限                                                                                 	|
+| -node             	| 当前服务器在集群中的名称，该值在整个 Consul 集群中必须唯一，默认值为当前主机名称                                                                                                                       	|
+| -bind             	| Consul 在当前服务器侦听的地址，如果您有多块网卡，请务必指定一个IP地址（IPv4/IPv6)，否则报错：==> Multiple private IPv4 addresses found. Please configure one with 'bind' and/or 'advertise'。默认值为：0.0.0.0，也可用使用[::]                                                                                   	|
+| -datacenter       	| 代理服务器运行的数据中心的名称，同一个数据中心中的 Consul 节点必须位于同一个 LAN 网络上                                                                                                                	|
+| -ui               	| 启用当前服务器内部的 WebUI 服务器和控制台界面                                                                                                                                                          	|
+| -join             	| 该参数指定当前服务器启动时，加入另外一个代理服务器的地址，在默认情况下，如果不指定该参数，则当前代理服务器不会加入任何节点。可以多次指定该参数，以加入多个代理服务器，                                 	|
+| -retry-join       	| 用途和 -join 一致，当第一次加入失败后进行重试，每次加入失败后等待时间为 30秒                                                                                                                           	|
+| -syslog           	| 指定此标志意味着将记录 syslog，该参数在 Windows 平台不支持                                                                                                                                             	|
 
-+ -server：以服务端的方式启动
-+ -bootstrap-expect=3：表示期望提供的server节点数目，只有达到这个数目，才能选举集群leader，有了leader，集群才能正常使用
-+ -ui：运行web控制台
-+ -bind：监听的IP，192.168.174.128是我宿主机的IP。注意在多IP环境，必须绑定一个，不能写0.0.0.0，否则报错：==> Multiple private IPv4 addresses found. Please configure one with 'bind' and/or 'advertise'.
-+ -clent：表示可以对consul注册或者查询等一系列客户端操作的的IP，0.0.0.0表示任意ip
-+ -data-dir：指定consul存储的路径
+
 
 #### 2.2 创建后面两个节点
 
@@ -73,24 +80,102 @@ docker run -d --name consulCluster04 --hostname consul04 -p 8503:8500 consul:1.6
 ### 4. 常用命令
 + 查看当前集群情况：consul members
 ![members][mem-base64]
+可以看到Type那列，指明了哪些节点是server，哪些节点是client
 
 + 查看当前节点情况：consul info
 ![info][info-base64]
+可以看到leader的值true代表当前节点是leader，false代表当前节点是follower。当leader节点崩了，集群会在剩下的server节点里重新选举一个leader节点
+
+### 5. .net core对consul的服务注册
+
+获取服务HTTP API
+
+```http
+http://192.168.174.128:8500/v1/catalog/service/服务名
+```
+
+得到结果示例：
+
+```json
+[
+    {
+        "ID": "33cfeacb-8034-e957-0854-8b25da4532a2",
+        "Node": "consul02",
+        "Address": "172.17.0.2",
+        "Datacenter": "dc1",
+        "TaggedAddresses": {
+            "lan": "172.17.0.2",
+            "wan": "172.17.0.2"
+        },
+        "NodeMeta": {
+            "consul-network-segment": ""
+        },
+        "ServiceKind": "",
+        "ServiceID": "testServer-192.168.65.199-5000",
+        "ServiceName": "testServer",
+        "ServiceTags": [
+            "slave",
+            "v1"
+        ],
+        "ServiceAddress": "192.168.65.199",
+        "ServiceWeights": {
+            "Passing": 1,
+            "Warning": 1
+        },
+        "ServiceMeta": {},
+        "ServicePort": 5000,
+        "ServiceEnableTagOverride": false,
+        "ServiceProxy": {
+            "MeshGateway": {}
+        },
+        "ServiceConnect": {},
+        "CreateIndex": 6704,
+        "ModifyIndex": 6704
+    },
+    {
+        "ID": "437ce85d-77bc-c1ca-88b3-2515f3c5c650",
+        "Node": "consul04",
+        "Address": "172.17.0.4",
+        "Datacenter": "dc1",
+        "TaggedAddresses": {
+            "lan": "172.17.0.4",
+            "wan": "172.17.0.4"
+        },
+        "NodeMeta": {
+            "consul-network-segment": ""
+        },
+        "ServiceKind": "",
+        "ServiceID": "testServer-192.168.65.199-5001",
+        "ServiceName": "testServer",
+        "ServiceTags": [
+            "master",
+            "v1"
+        ],
+        "ServiceAddress": "192.168.65.199",
+        "ServiceWeights": {
+            "Passing": 1,
+            "Warning": 1
+        },
+        "ServiceMeta": {},
+        "ServicePort": 5001,
+        "ServiceEnableTagOverride": false,
+        "ServiceProxy": {
+            "MeshGateway": {}
+        },
+        "ServiceConnect": {},
+        "CreateIndex": 6706,
+        "ModifyIndex": 6706
+    }
+]
+```
 
 
+具体详细HTTP API内容，请查阅官网：
+https://www.consul.io/api/catalog.html
 
 
-
-
-
-
-
-
-
-
-
-
-
+.net core对consul的服务注册示例源码:
+https://github.com/kallblack/blog/tree/master/queue/rabbitmq/websocket-rabbitmq-example
 
 
 

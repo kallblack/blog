@@ -1,4 +1,4 @@
-# Markdown代码段书写规范
+# <center>Markdown代码段书写规范</center>
 
 ## 1.代码段写法：
 ```bash

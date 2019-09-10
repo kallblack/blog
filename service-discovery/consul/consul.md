@@ -1,4 +1,4 @@
-# docker容器安装consul集群
+# <center>docker容器安装consul集群</center>
 
 ## 1. 安装前准备
 
@@ -80,12 +80,16 @@ docker run -d --name consulCluster04 --hostname consul04 -p 8503:8500 consul:1.6
 ```
 
 ## 4. 常用命令
-+ 查看当前集群情况：consul members
+
+查看当前集群情况：consul members
 ![members][mem-base64]
+
 可以看到Type那列，指明了哪些节点是server，哪些节点是client
 
-+ 查看当前节点情况：consul info
+
+查看当前节点情况：consul info
 ![info][info-base64]
+
 可以看到leader的值true代表当前节点是leader，false代表当前节点是follower。当leader节点崩了，集群会在剩下的server节点里重新选举一个leader节点
 
 ## 5. .net core对consul的服务注册

@@ -1,4 +1,4 @@
-# docker容器安装rabbitmq集群
+# <center>docker容器安装rabbitmq集群</center>
 
 ## 1. 安装前准备
 
@@ -40,7 +40,7 @@ docker exec -it rabbitmqCluster01 bash
 rabbitmqctl stop_app
 rabbitmqctl reset
 rabbitmqctl start_app
-rabbitmq-plugins enable rabbitmq_tracing rabbitmq_stomp rabbitmq_web_stomp rabbitmq_web_mqtt #启动相关插件
+rabbitmq-plugins enable rabbitmq_tracing rabbitmq_stomp rabbitmq_web_stomp rabbitmq_web_mqtt rabbitmq_auth_backend_http rabbitmq_auth_backend_cache #启动相关插件
 rabbitmqctl set_policy ha-all "^" '{"ha-mode":"all"}' #设置为镜像模式
 exit
 ```
@@ -53,7 +53,7 @@ rabbitmqctl stop_app
 rabbitmqctl reset
 rabbitmqctl join_cluster --ram rabbit@rabbitmq01
 rabbitmqctl start_app
-rabbitmq-plugins enable rabbitmq_tracing rabbitmq_stomp rabbitmq_web_stomp rabbitmq_web_mqtt #启动相关插件
+rabbitmq-plugins enable rabbitmq_tracing rabbitmq_stomp rabbitmq_web_stomp rabbitmq_web_mqtt rabbitmq_auth_backend_http rabbitmq_auth_backend_cache #启动相关插件
 exit
 ```
 
@@ -65,7 +65,7 @@ rabbitmqctl stop_app
 rabbitmqctl reset
 rabbitmqctl join_cluster --ram rabbit@rabbitmq01
 rabbitmqctl start_app
-rabbitmq-plugins enable rabbitmq_tracing rabbitmq_stomp rabbitmq_web_stomp rabbitmq_web_mqtt #启动相关插件
+rabbitmq-plugins enable rabbitmq_tracing rabbitmq_stomp rabbitmq_web_stomp rabbitmq_web_mqtt rabbitmq_auth_backend_http rabbitmq_auth_backend_cache #启动相关插件
 exit
 ```
 

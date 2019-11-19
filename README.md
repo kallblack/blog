@@ -13,7 +13,8 @@
     - [docker容器安装consul集群](https://kallblack.github.io/blog/service-discovery/consul/consul)
 3. API网关
     - [docker容器安装Ocelot](https://kallblack.github.io/blog/api-gateway/ocelot/ocelot)
-
+4. 系统维护
+    - [Ubuntu](https://kallblack.github.io/blog/system/ubuntu/ubuntu)
 
 ### 附录
 

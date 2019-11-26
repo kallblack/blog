@@ -27,3 +27,27 @@ xhost +
  -e GDK_SCALE \                      #我觉得这两个是与显示效果相关的环境变量，没有细究
  -e GDK_DPI_SCALE \
 ```
+
+## 3. 安装docker-compose
+ 
+进入https://github.com/docker/compose/releases 查看最新版本，当前版本为1.25.0
+
+```bash
+#1.安装
+curl -L https://github.com/docker/compose/releases/download/1.25.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+#2.增加执行权限
+chmod +x /usr/local/bin/docker-compose
+#4.查看是否安装成功
+docker-compose --version
+```
+
+由于github下载速度很慢，我尝试了多次都没有下载成功，所以我使用单独的下载工具将docker-compose-Linux-x86_64下载下来
+```bash
+#1.将docker-compose-Linux-x86_64拷贝到/usr/local/bin/目录下，并更名为docker-compose
+cd /usr/local/bin/ && mv docker-compose-Linux-x86_64 docker-compose
+#2.增加执行权限
+chmod +x /usr/local/bin/docker-compose
+#4.查看是否安装成功
+docker-compose --version
+```
+

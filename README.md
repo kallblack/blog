@@ -15,6 +15,7 @@
     - [docker容器安装Ocelot](https://kallblack.github.io/blog/api-gateway/ocelot/ocelot)
 4. 系统维护
     - [Ubuntu常用维护](https://kallblack.github.io/blog/system/ubuntu/ubuntu)
+    - [Ubuntu19.04制作本地源](https://kallblack.githug.io/blog/system/ubuntu/debs)
 5. docker容器：
     - [docker容器常用命令](https://kallblack.github.io/blog/docker/docker/docker)
     - Harbor

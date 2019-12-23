@@ -18,7 +18,7 @@ docker pull consul:1.6.0
 输入命令：
 
 ```bash
-docker run -d --net=host --name consulCluster01  -v /root/consulcluster/consul01/data:/consul/data consul:1.6.0 agent -server -bootstrap-expect=3 -ui -bind=192.168.174.128 -client=0.0.0.0 -data-dir /consul/data
+docker run -d --net=host --name=consulCluster01  -v /root/consulcluster/consul01/data:/consul/data consul:1.6.0 agent -server -bootstrap-expect=3 -ui -bind=192.168.174.128 -client=0.0.0.0 -data-dir /consul/data
 ```
 
 参数具体含义：

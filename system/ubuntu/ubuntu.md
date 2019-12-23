@@ -32,6 +32,7 @@ apt-get update
 ## 2. 重置root密码
 
 ```bash
+#注意一定要输sudo
 sudo passwd root
 ```
 
@@ -74,6 +75,12 @@ PS1='${debian_chroot:+($debian_chroot)}\u@\h:\W\$ '
 然后刷新
 ```bash
 source ~/.bashrc 
+```
+
+## 6. 安装图形界面
+
+```bash
+sudo apt install ubuntu-desktop && sudo startx
 ```
 
 

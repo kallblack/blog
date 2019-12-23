@@ -49,8 +49,8 @@ gpg -abs -o Release.gpg Release
 ## 2.在不能上网的Ubuntu上通过本地源安装软件
 将第1步制作的文件夹里的所有文件复制到/var/debs里，然后修改源地址
 ```bash
-#由于该Ubuntu不能上网，原来的源没没有什么用处，直接懒得备份，直接改掉
-echo "deb file:///var/debs/ /"| sudo tee /etc/apt/sources.list 
+#由于该Ubuntu不能上网，原来的源也没有什么用处，懒得备份，直接替换掉
+echo "deb file:///var/debs/ /" | sudo tee /etc/apt/sources.list 
 ```
 接下来导入公钥，并安装Nginx
 ```bash

@@ -11,7 +11,7 @@ http://mirrors.aliyun.com/ubuntu/
 ```bash
 vim /etc/apt/sources.list
 
-#删除文件里的所有内容，并替换为
+#删除文件里的所有内容，并替换为如下所示：（注意Ubuntu的版本号不同，下面的地址也会不一样）
 deb http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse
 deb http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse
 deb http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse

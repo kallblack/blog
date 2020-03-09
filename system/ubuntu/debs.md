@@ -11,7 +11,7 @@
 先在线下载Nginx安装包及依赖包
 ```bash
 sudo rm -fr /var/cache/apt/archives/* #先请空旧的安装包
-sudo apt-get install nginx
+sudo apt-get install -y -d nginx
 ```
 执行完命令后，可以看到/var/cache/apt/archives文件夹里下载了Nginx相关的包
 
@@ -33,6 +33,11 @@ sudo apt-ftparchive release . > Release
 cd /var/debs
 su root #这里只能用root用户，sudo也会报没有权限
 gpg --gen-key #执行gpg会进入一些对话，其中要新建一个用户名username和相应的密码
+#真实姓名：untiech
+#电子邮件地址：untiech@ut.cn
+#注释：ut
+#您选定了这个用户标识：“untiech (ut) <untiech@ut.cn>”
+
 # 结束之后，输入命令，可以查看key
 gpg --list-key
 # 导出公钥，pub为gpg --list-key命令显示的pub值，是一串编码，例如：

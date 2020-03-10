@@ -7,7 +7,7 @@
 ---
 ### 目录:
 
-1. 消息队列：
+1. 消息队列
     - [docker容器安装rabbitmq集群](https://kallblack.github.io/blog/queue/rabbitmq/rabbitmq)
 2. 服务发现
     - [docker容器安装consul集群](https://kallblack.github.io/blog/service-discovery/consul/consul)
@@ -16,7 +16,7 @@
 4. 系统维护
     - [Ubuntu常用维护](https://kallblack.github.io/blog/system/ubuntu/ubuntu)
     - [Ubuntu19.04制作本地源](https://kallblack.github.io/blog/system/ubuntu/debs)
-5. docker容器：
+5. docker容器
     - [docker容器常用命令](https://kallblack.github.io/blog/docker/docker/docker)
     - Harbor
         - [Harbor离线安装](https://kallblack.github.io/blog/docker/harbor/setup)
@@ -24,6 +24,9 @@
     - Rancher
         - [Rancher单节点安装](https://kallblack.github.io/blog/docker/rancher/single-node)
         - [Rancher使用过程中遇到的问题](https://kallblack.github.io/blog/docker/rancher/question)
+6. 数据库
+    - Mysql
+        - [配置mysql允许远程连接](https://kallblack.github.io/blog/database/mysql/remote)
 
 ### 附录
 

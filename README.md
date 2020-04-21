@@ -30,6 +30,9 @@
 6. 数据库
     - Mysql
         - [配置mysql允许远程连接](https://kallblack.github.io/blog/database/mysql/remote)
+7. 语言
+    - C++
+        - [gbk/utf-8编码互转](https://kallblack.github.io/blog/language/cpp/encode)
 
 ### 附录
 

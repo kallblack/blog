@@ -1,5 +1,6 @@
 # <center>docker容器安装ELK(使用filebeat)</center>
 
+由于使用filebeat需要读取log日志，时效性较低，我这里需要查看日志实时信息，所以不使用filebeat，直接使用nlog将日志通过tcp方式发送到logstash中
 
 ## 1. 拉取所有需要的镜像
 

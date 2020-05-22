@@ -10,7 +10,7 @@
 
 先在线下载Nginx安装包及依赖包
 ```bash
-sudo rm -fr /var/cache/apt/archives/* #先请空旧的安装包
+sudo rm -fr /var/cache/apt/archives/* #先清空旧的安装包
 sudo apt-get install -y -d nginx
 ```
 执行完命令后，可以看到/var/cache/apt/archives文件夹里下载了Nginx相关的包

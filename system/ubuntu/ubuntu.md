@@ -1,4 +1,4 @@
-# <center>ubuntu系统18.04 LTS</center>
+# <center>ubuntu系统20.04 LTS</center>
 
 ## 1. 更换为阿里云的源
 
@@ -12,21 +12,32 @@ http://mirrors.aliyun.com/ubuntu/
 vim /etc/apt/sources.list
 
 #删除文件里的所有内容，并替换为如下所示：（注意Ubuntu的版本号不同，下面的地址也会不一样）
-deb http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse
-deb http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse
-deb http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse
-deb http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse
-deb http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ focal-security main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ focal-updates main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ focal-proposed main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ focal-backports main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ focal-security main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ focal-updates main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ focal-proposed main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ focal-backports main restricted universe multiverse
 
 
 #最后执行更新
 apt-get update
+
+#如果是通过代理来更新，出现Hash接收值与期待值不匹配错误，按照下面操作解决问题
+sudo cat >/etc/apt/apt.conf.d/99fixbadproxy <<EOF
+> Acquire::http::Pipeline-Depth "0";
+> Acquire::http::No-Cache=True;
+> Acquire::BrokenProxy=true;
+> EOF
+
+sudo rm -rf /var/lib/apt/lists/*
+sudo apt-get update
 ```
+
 
 
 ## 2. 重置root密码
@@ -36,14 +47,24 @@ apt-get update
 sudo passwd root
 ```
 
-## 3. 允许root用户登录
+## 3. 安装必要软件
+```bash
+#安装vim
+sudo apt-get install vim
+
+#安装ssh
+sudo apt-get install openssh-server
+```
+
+## 4. 允许root用户ssh登录
 
 进入配置文件中修改PermitRootLogin后的默认值为yes
 ```bash
 sudo vim /etc/ssh/sshd_config
 sudo service ssh restart
 ```
-## 4. 使用Xshell连接Linux输入反斜杠成W
+
+## 5. 使用Xshell连接Linux输入反斜杠成W
 打开Xshell时连接Linux系统输入反斜杠成W
 
 这个是Xshell字体原因，具体设置如下：
@@ -56,7 +77,7 @@ sudo service ssh restart
 
 
 
-## 5. 终端下只显示当前目录
+## 6. 终端下只显示当前目录
 
 ```bash
 sudo vim ~/.bashrc
@@ -77,7 +98,7 @@ PS1='${debian_chroot:+($debian_chroot)}\u@\h:\W\$ '
 source ~/.bashrc 
 ```
 
-## 6. 安装图形界面
+## 7. 安装图形界面
 
 ```bash
 sudo apt install ubuntu-desktop && sudo startx

@@ -47,16 +47,11 @@ sudo apt-get update
 sudo passwd root
 ```
 
-## 3. 安装必要软件
+## 3. 安装基础软件
 ```bash
-#安装vim
-sudo apt-get install vim
+#安装基础软件
+sudo apt-get install -y gcc g++ make telnet net-tools libboost-dev wget vim openjdk-13-jdk-headless autoconf automake libtool
 
-#安装ssh
-sudo apt-get install openssh-server
-
-#安装cmake
-sudo apt-get install cmake
 ```
 
 

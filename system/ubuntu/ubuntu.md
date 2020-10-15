@@ -54,7 +54,13 @@ sudo apt-get install vim
 
 #安装ssh
 sudo apt-get install openssh-server
+
+#安装cmake
+sudo apt-get install cmake
 ```
+
+
+
 
 ## 4. 允许root用户ssh登录
 
